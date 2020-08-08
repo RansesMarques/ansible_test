@@ -7,14 +7,16 @@
   - name: updating repositories
     yum:
       update_cache: yes
-
+    when: ansible_distribution == "Ubuntu"
 
   - name: installing apache2 package
     yum:
       name: httpd
       state: latest
+    when: ansible_distribution == "Ubuntu"
   
   - name: installing net-tools package
     yum:
       name: net-tools
       state: latest 
+    when: ansible_distribution == "Ubuntu"
