@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+  
+  - name: installing apache2 package
+    yum:
+      name: httpd
+      state: absent
+  
+  - name: installing net-tools package
+    yum:
+      name: net-tools
+      state: absent 
