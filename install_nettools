@@ -7,21 +7,21 @@
   - name: updating yum repositories
     yum:
       update_cache: yes
-    when: ansible_pkg_mgt == "yum"
+    when: ansible_pkg_mgr == "yum"
     
   - name: updating apt repositories
     apt:
       update_cache: yes
-    when: ansible_pkg_mgt == "apt"
+    when: ansible_pkg_mgr == "apt"
 
   - name: installing net-tools package for yum
     yum:
       name: net-tools
       state: latest
-    when: ansible_pkg_mgt == "yum"
+    when: ansible_pkg_mgr == "yum"
   
   - name: installing net-tools package for apt
     apt:
       name: net-tools
       state: latest 
-    when: ansible_pkg_mgt == "apt"
+    when: ansible_pkg_mgr == "apt"
