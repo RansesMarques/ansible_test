@@ -4,16 +4,8 @@
   become: true
   tasks: 
 
-  - name: installing net-tools package for yum
-    yum:
+  - name: installing net-tools package
+    package:
       name: net-tools
       state: latest
       update_cache: yes
-    when: ansible_pkg_mgr == "yum"
-  
-  - name: installing net-tools package for apt
-    apt:
-      name: net-tools
-      state: latest
-      update_cache: yes
-    when: ansible_pkg_mgr == "apt"
