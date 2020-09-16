@@ -5,6 +5,7 @@
   tasks: 
   
   - name: removing apache2 package
+    tags: centos
     yum:
       name: httpd
       state: absent

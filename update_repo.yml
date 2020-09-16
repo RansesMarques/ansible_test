@@ -1,0 +1,40 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: creating a kelevra user
+    tags: always
+    user:
+      name: kelevra
+      groups: root
+
+  - name: add ssh key for kelevra
+    tags: always
+    authorized_key:
+      user: kelevra
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOODnnC/m0tHUnOvASlI+3rb84JIlN0WHqmY9W/ukoM ansible"
+
+  - name: add sudoers file for kelevra
+    tags: always
+    copy:
+      src: sudoer_kelevra
+      dest: /etc/sudoers.d/kelevra
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: updating  yum repositories
+    yum:
+      name: '*'
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  - name: updating apt repositories
+    apt:
+      update_cache: yes
+      state: latest
+      only_upgrade: yes
+      upgrade: full
+    when: ansible_distribution == "Ubuntu" 

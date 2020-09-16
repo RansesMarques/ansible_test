@@ -14,9 +14,38 @@
       name: httpd
       state: latest
     when: ansible_distribution == "CentOS"
-  
-  - name: installing net-tools package
-    yum:
-      name: net-tools
-      state: latest 
+
+  - name: Starting httpd service after installing
+    tags: apache,centos,httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "CentOS"
+   
+  - name: changing e-mail address
+    tags: apache,centos,httpd
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin ransesmarques@hotmail.com
+    when: ansible_distribution == "CentOS"
+    register: httpd
+
+  - name: restart httpd
+    tags: apache,centos,httpd
+    service: 
+      name: httpd
+      state: restarted
+    when: httpd.changed
+    
+
+  - name: Copy Default html file for website
+    tags: apache,apache2,httpd
+    copy: 
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
     when: ansible_distribution == "CentOS"
