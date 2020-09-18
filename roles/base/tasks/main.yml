@@ -1,0 +1,5 @@
+- name: add ssh key for kelevra
+  tags: always
+  authorized_key:
+    user: kelevra
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOODnnC/m0tHUnOvASlI+3rb84JIlN0WHqmY9W/ukoM ansible"
